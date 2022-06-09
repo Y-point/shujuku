@@ -1,0 +1,89 @@
+
+<html>
+    <head>
+        <style>
+            table tbody {
+            display:block;
+            height:500px;
+            overflow-y:scroll;
+            }
+
+            table thead, tbody tr {
+            display:table;
+            width:100%;
+            table-layout:fixed;
+            }
+
+            table thead{
+            width: calc( 100% - 1em )
+            }
+            table thead th{ background:rgb(204, 204, 204);}
+        </style>
+        <title>库存管理</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- 引入 Bootstrap -->
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            a {
+                text-decoration: none;
+                color: cadetblue;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="page-header">
+                    <h1>
+                        <small>库存管理</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 column">
+                <a class="btn btn-primary" href="./Purchase.html" onclick="">去进货</a>
+            </div>
+            <div class="col-md-4 column"></div>
+            <div class="col-md-4 column">
+                <form class="form-inline" action="${pageContext.request.contextPath}/book/queryBook" method="post">
+                    <input type="text" class="form-control" name="bookName"  placeholder="请输入你要查询的书籍">
+                    <input type="submit" class="btn btn-success" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>图书编号</th>
+                        <th>图书名称</th>
+                        <th>库存数量</th>
+                        <th>书籍详情</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="book" items="${list}">
+                        <tr>
+                            <td>${book.getBookID()}</td>
+                            <td>${book.getBookName()}</td>
+                            <td>${book.getBookCounts()}</td>
+                            <td>${book.getDetail()}</td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/book/toUpdateBook?id=${book.getBookID()}">修改</a> |
+                                <a href="${pageContext.request.contextPath}/book/deleteBook?id=${book.getBookID()}">删除</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+    
